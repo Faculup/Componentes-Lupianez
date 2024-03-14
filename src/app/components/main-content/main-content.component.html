@@ -1,0 +1,42 @@
+<div class="centered-content">
+  <div *ngFor="let project of projects$ | async" class="project-card">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+          <img
+            *ngIf="userAvatarUrl$ | async as userAvatarUrl"
+            [src]="userAvatarUrl"
+            alt="User Avatar"
+          />
+        </div>
+        <mat-card-subtitle>{{ project.name }}</mat-card-subtitle>
+        <mat-card-title
+          >{{ project.description | slice : 0 : 50 }}...</mat-card-title
+        >
+      </mat-card-header>
+      <mat-card-content>
+        <p>Visita mis proyectos en github.</p>
+        <br />
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
+          laborum ullam distinctio, animi quod quidem fugiat nesciunt incidunt?
+          Vel incidunt quis possimus laboriosam aut debitis quo atque
+          praesentium ab sunt!
+        </p>
+        <mat-divider></mat-divider>
+      </mat-card-content>
+      <mat-card-actions>
+        <a
+          mat-button
+          href="{{ project.html_url }}"
+          target="_blank"
+          class="custom-link"
+          >Link al repo</a
+        >
+      </mat-card-actions>
+      <mat-card-footer>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+:host {
+  display: block;
+}
+.toolbar {
+  display: flex;
+  justify-content: center;
+}

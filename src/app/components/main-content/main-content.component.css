@@ -1,0 +1,52 @@
+.centered-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.project-card {
+  width: 90%;
+  max-width: 400px; /* Adjust this to control the max width of the cards */
+
+  margin-left: 20px;
+}
+
+.example-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-card-header {
+  display: flex;
+  align-items: center;
+}
+
+.mat-card-avatar img {
+  border-radius: 50%;
+  width: 40px; /* Adjust the size of the avatar if needed */
+  height: 40px; /* Ensure this is the same as the width for a circle */
+}
+
+.example-header-image {
+  overflow: hidden; /* Ensures the image does not overflow its container */
+}
+
+.custom-link {
+  color: rgb(221, 156, 221);
+  text-decoration: none; /* Removes underline from links */
+}
+
+.custom-link:hover {
+  text-decoration: underline; /* Adds underline on hover for better UX */
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-end; /* Aligns action buttons to the right */
+}
+
+.mat-card-footer {
+  margin-top: auto; /* Pushes the footer to the bottom of the card */
+}

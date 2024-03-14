@@ -1,0 +1,21 @@
+.general-app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-toolbar {
+  /* Adjust according to your actual toolbar height */
+  height: 10vh; /* Default for Material, but check your theme */
+}
+
+.sidenav-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevents scrolling */
+}
+
+.sidenav {
+  width: 200px;
+}
