@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+.approved {
+  background-color: lightgreen;
+}
+
+.disapproved {
+  background-color: #ffcccc;
+}
+
+.search-container {
+  margin-bottom: 20px;
+}

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Observable, map } from 'rxjs';
+import { ListaDeUsuariosComponent } from '../lista-de-usuarios/lista-de-usuarios.component';
 
 interface GitHubProject {
   name: string;
@@ -21,29 +21,14 @@ interface GitHubProject {
     MatCardModule,
     MatDividerModule,
     MatProgressBarModule,
+    ListaDeUsuariosComponent,
   ],
   templateUrl: './main-content.component.html',
   styleUrl: './main-content.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainContentComponent {
-  public projects$: Observable<GitHubProject[]> | undefined;
-
-  public userAvatarUrl$: Observable<string> | undefined;
-
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.projects$ = this.http.get<GitHubProject[]>(
-      'https://api.github.com/users/faculup/repos'
-    );
-
-    this.fetchUserAvatar('faculup');
-  }
-
-  fetchUserAvatar(username: string) {
-    this.userAvatarUrl$ = this.http
-      .get<any>(`https://api.github.com/users/${username}`)
-      .pipe(map((user) => user.avatar_url));
-  }
+  ngOnInit() {}
 }
