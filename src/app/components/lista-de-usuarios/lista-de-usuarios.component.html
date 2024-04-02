@@ -3,9 +3,9 @@
     <mat-label>Buscar usuario</mat-label>
     <input
       matInput
-      (keyup)="applyFilter($event)"
+      (input)="applyFilter($event)"
       placeholder="Escribe el nombre del usuario"
-      [(ngModel)]="filterValue"
+      [formControl]="searchControl"
     />
   </mat-form-field>
 </div>

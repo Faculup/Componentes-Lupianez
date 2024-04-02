@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -27,6 +27,7 @@ interface User {
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './lista-de-usuarios.component.html',
   styleUrl: './lista-de-usuarios.component.css',
@@ -37,6 +38,8 @@ export class ListaDeUsuariosComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
   filterValue: string | undefined;
 
+  searchControl = new FormControl('');
+
   @ViewChild(MatPaginator) paginator: MatPaginator | null | undefined;
 
   constructor(private userService: UserService) {}
@@ -45,6 +48,14 @@ export class ListaDeUsuariosComponent implements OnInit {
     this.userService.getUsers().subscribe((users: any) => {
       this.dataSource.data = users;
     });
+
+    this.searchControl.valueChanges.subscribe((value) => {
+      this.dataSource.filter = value?.trim()?.toLowerCase() || '';
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+    });
+
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
