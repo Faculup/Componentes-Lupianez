@@ -4,73 +4,58 @@ import {
   Component,
   OnInit,
   ViewChild,
+  AfterViewInit,
 } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { UserService } from '../../services/user-service.service';
-
-interface User {
-  name: string;
-  score: number;
-}
+import { MatTableDataSource } from '@angular/material/table';
+import { User, UserService } from '../../services/user-service.service';
 
 @Component({
   selector: 'app-lista-de-usuarios',
-  standalone: true,
+  templateUrl: './lista-de-usuarios.component.html',
+  styleUrls: ['./lista-de-usuarios.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatTableModule, // Ensure MatTableModule is imported here
   ],
-  templateUrl: './lista-de-usuarios.component.html',
-  styleUrl: './lista-de-usuarios.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
-export class ListaDeUsuariosComponent implements OnInit {
+export class ListaDeUsuariosComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['name', 'score', 'approved'];
   dataSource = new MatTableDataSource<User>();
-  filterValue: string | undefined;
-
   searchControl = new FormControl('');
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | null | undefined;
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((users: any) => {
+    this.userService.getUsers().subscribe((users) => {
       this.dataSource.data = users;
     });
 
     this.searchControl.valueChanges.subscribe((value) => {
-      this.dataSource.filter = value?.trim()?.toLowerCase() || '';
-      if (this.dataSource.paginator) {
-        this.dataSource.paginator.firstPage();
-      }
+      this.applyFilter(value ?? '');
     });
-
-    if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
-    }
   }
 
   ngAfterViewInit() {
-    if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
-    }
+    this.dataSource.paginator = this.paginator;
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
+  applyFilter(value: string) {
+    this.dataSource.filter = value.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

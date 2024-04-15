@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ListaDeUsuariosComponent } from '../lista-de-usuarios/lista-de-usuarios.component';
+import { AbmAlumnosComponent } from '../abm-alumnos/abm-alumnos.component';
 
 interface GitHubProject {
   name: string;
@@ -22,6 +23,7 @@ interface GitHubProject {
     MatDividerModule,
     MatProgressBarModule,
     ListaDeUsuariosComponent,
+    AbmAlumnosComponent,
   ],
   templateUrl: './main-content.component.html',
   styleUrl: './main-content.component.css',
